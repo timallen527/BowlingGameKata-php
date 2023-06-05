@@ -11,7 +11,15 @@ final class BowlingGameTest extends TestCase
         $this->assertSame(0, $game->Score());
     }
 
-    private function rollMany(BowlingGame $game, int $pins, int $numberOfRolls)
+    public function testAllOnesReturnsScoreOfTwenty()
+    {
+        $game = new BowlingGame();
+        $this->rollMany($game,1);
+
+        $this->assertSame(20, $game->Score());
+    }
+
+    private function rollMany(BowlingGame $game, int $pins, int $numberOfRolls = 20) : void
     {
         for($i = 0; $i < $numberOfRolls; $i++)
         {
