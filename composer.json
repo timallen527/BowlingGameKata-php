@@ -1,0 +1,10 @@
+{
+    "require": {
+        "phpunit/phpunit": "10^"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    }
+}
