@@ -2,9 +2,15 @@
 
 class BowlingGame
 {
-    public function Score(): int
+    private $rolls = array();
+
+    public function Roll(int $pins)
     {
-        return 0;
+        $rolls = $pins;
     }
 
+    public function Score(): int
+    {
+        return array_sum($this->rolls);
+    }
 }

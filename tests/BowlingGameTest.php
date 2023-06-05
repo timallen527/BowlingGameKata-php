@@ -6,9 +6,16 @@ final class BowlingGameTest extends TestCase
     public function testAllGutterBallsReturnsScoreOfZero()
     {
         $game = new BowlingGame();
+        $this->rollMany($game,0, 20);
 
-        $score = $game->Score();
+        $this->assertSame(0, $game->Score());
+    }
 
-        $this->assertSame(0, $score);
+    private function rollMany(BowlingGame $game, int $pins, int $numberOfRolls)
+    {
+        for($i = 0; $i < $numberOfRolls; $i++)
+        {
+            $game->Roll($pins);
+        }
     }
 }
