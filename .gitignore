@@ -8,6 +8,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+# Dependencies
+vendor/
+
 # AWS User-specific
 .idea/**/aws.xml
 
