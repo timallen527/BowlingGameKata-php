@@ -26,7 +26,35 @@ final class BowlingGameTest extends TestCase
         $game->Roll(4);
         $game->Roll(3);
         $this->rollMany($game, 0, 17);
+
         $this->assertSame(16, $game->Score());
+    }
+
+    public function testAllSpares()
+    {
+        $game = new BowlingGame();
+        $this->rollMany($game, 5, 21);
+
+        $this->assertSame(150, $game->Score());
+    }
+
+    public function testOneStrikeAddsNextTwoRolls()
+    {
+        $game = new BowlingGame();
+        $game->Roll(10);
+        $game->Roll(4);
+        $game->Roll(3);
+        $this->rollMany($game, 0, 17);
+
+        $this->assertSame(24, $game->Score());
+    }
+
+    public function testPerfectGame()
+    {
+        $game = new BowlingGame();
+        $this->rollMany($game, 10, 12);
+
+        $this->assertSame(300, $game->Score());
     }
 
     private function rollMany(BowlingGame $game, int $pins, int $numberOfRolls = 20) : void

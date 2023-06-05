@@ -18,16 +18,21 @@ class BowlingGame
 
         for ($i = 0; $i < self::NumberOfFrames; $i++)
         {
-            if ($this->rolls[$roll] + $this->rolls[$roll + 1] == 10)
+            if ($this->rolls[$roll] == self::MaxPins)
+            {
+                $score += 10 + $this->rolls[$roll + 1] + $this->rolls[$roll + 2];
+                $roll++;
+            }
+            else if ($this->rolls[$roll] + $this->rolls[$roll + 1] == self::MaxPins)
             {
                 $score += 10 + $this->rolls[$roll + 2];
+                $roll += 2;
             }
             else
             {
                 $score += $this->rolls[$roll] + $this->rolls[$roll + 1];
+                $roll += 2;
             }
-
-            $roll += 2;
         }
         return $score;
     }
