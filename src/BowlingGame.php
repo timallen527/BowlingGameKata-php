@@ -4,64 +4,64 @@ class BowlingGame
 {
     const MaxPins = 10;
     const NumberOfFrames = 10;
-    protected array $rolls = [];
+    private array $rolls = [];
 
-    public function Roll(int $pins) : void
+    public function roll(int $pins) : void
     {
         $this->rolls[] = $pins;
     }
 
-    public function Score(): int
+    public function score(): int
     {
         $score = 0;
-        $roll = 0;
+        $rollIndex = 0;
 
         for ($i = 0; $i < self::NumberOfFrames; $i++)
         {
-            if ($this->isStrike($roll))
+            if ($this->isStrike($rollIndex))
             {
-                $score += $this->GetStrikeScoreForFrame($roll);
-                $roll++;
-            }
-            else if ($this->isSpare($roll))
-            {
-                $score += $this->GetSpareScoreForFrame($roll);
-                $roll += 2;
+                $score += $this->getStrikeScoreForFrame($rollIndex);
+                $rollIndex++;
             }
             else
             {
-                $score += $this->GetScoreForRollsInFrame($roll);
-                $roll += 2;
+                if ($this->isSpare($rollIndex))
+                {
+                    $score += $this->getSpareScoreForFrame($rollIndex);
+                }
+                else
+                {
+                    $score += $this->getScoreForRollsInFrame($rollIndex);
+                }
+
+                $rollIndex += 2;
             }
         }
+
         return $score;
     }
 
-    public function GetStrikeScoreForFrame(int $roll): mixed
-    {
-        return self::MaxPins + $this->rolls[$roll + 1] + $this->rolls[$roll + 2];
-    }
-
-    public function isStrike(int $roll): bool
+    private function isStrike(int $roll): bool
     {
         return $this->rolls[$roll] == self::MaxPins;
     }
 
-    public function isSpare(int $roll): bool
+    private function isSpare(int $roll): bool
     {
-        return $this->GetScoreForRollsInFrame($roll) == self::MaxPins;
+        return $this->getScoreForRollsInFrame($roll) == self::MaxPins;
     }
 
-    public function GetSpareScoreForFrame(int $roll): mixed
+    private function getStrikeScoreForFrame(int $roll): int
+    {
+        return self::MaxPins + $this->rolls[$roll + 1] + $this->rolls[$roll + 2];
+    }
+
+    private function getSpareScoreForFrame(int $roll): int
     {
         return self::MaxPins + $this->rolls[$roll + 2];
     }
 
-    /**
-     * @param int $roll
-     * @return mixed
-     */
-    public function GetScoreForRollsInFrame(int $roll): mixed
+    private function getScoreForRollsInFrame(int $roll): int
     {
         return $this->rolls[$roll] + $this->rolls[$roll + 1];
     }
